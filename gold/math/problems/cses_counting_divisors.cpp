@@ -1,16 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> factor(int n) {
-    vector<int> ret;
+int factor(int n) {
+    int ans = 1;
     for (int i = 2; i * i <= n; ++i) {
+        int ct = 0;
         while (n % i == 0) {
-            ret.push_back(i);
+            ct++;
             n /= i;
         }
+        ans = ans * (ct + 1);
     }
-    if (n > 1) { ret.push_back(n); }
-    return ret;
+    if (n > 1) { ans = ans * 2; }
+    return ans;
 }
 
 int main()
@@ -24,21 +26,7 @@ int main()
     while(t--)
     {
         cin >> n;
-        vector<int> factors = factor(n);
-        
-        map<int, int> freq_factors;
-
-        for (int num: factors) {
-            freq_factors[num]++;
-        }
-        
-        int ans = 1;
-        for (auto const& pair: freq_factors) {
-            ans *= (pair.second + 1);
-        }
-
-        cout << ans << endl;
-
+        cout << factor(n) << endl;
     }
 
 }
